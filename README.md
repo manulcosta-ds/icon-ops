@@ -1,6 +1,6 @@
-# Icon Guardian - Figma Plugin
+# Icon Ops - Figma Plugin
 
-Professional icon library management and auditing plugin for Figma.
+Icon library management and auditing plugin for Figma.
 
 ## Features
 
@@ -44,32 +44,6 @@ Comprehensive icon library auditing with:
 - **Health score**: Overall library quality metric
 - **Export reports**: JSON format for external processing
 - **Filter issues**: By type (duplicates, strokes, fills, geometry, naming)
-
-## How to Build and Run
-
-### Prerequisites
-- Node.js 18+ and npm
-- Figma desktop app
-
-### Installation
-
-1. **Install dependencies**:
-```bash
-npm install
-```
-
-2. **Build the plugin**:
-```bash
-npm run build
-```
-
-This creates a `dist/` folder with:
-- `main.js` - Plugin logic (~200KB, includes JSZip)
-- `ui.html` - UI interface (~60KB, CSS/JS inlined)
-
-> **Build Options**: The default uses esbuild for fast, reliable builds. Alternatively, you can use `npm run build:vite` if you prefer Vite. See [BUILD_FIX.md](BUILD_FIX.md) for details.
-
-### Load in Figma
 
 1. Open Figma desktop app
 2. Go to **Plugins** → **Development** → **Import plugin from manifest...**
