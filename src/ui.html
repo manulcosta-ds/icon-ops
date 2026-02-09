@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Icon Guardian</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231A1A2E'/%3E%3Cpath d='M16 6l2.5 5.5L24 13l-4 4 1 5.5L16 20l-5 2.5 1-5.5-4-4 5.5-1.5z' fill='%23FFD43B' stroke='%231A1A2E' stroke-width='0.5'/%3E%3Ccircle cx='16' cy='14' r='3' fill='%23FF6B6B'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Home Screen -->
+    <div id="home-screen" class="screen">
+      <div class="header">
+        <h1>Icon Guardian</h1>
+        <p class="subtitle">Professional icon library management</p>
+      </div>
+      
+      <div class="action-cards">
+        <button class="action-card" id="btn-browse">
+          <div class="card-icon">🎨</div>
+          <h3>Browse Library</h3>
+          <p>Search and insert published icons</p>
+        </button>
+        
+        <button class="action-card" id="btn-import">
+          <div class="card-icon">📦</div>
+          <h3>Import SVG Zip</h3>
+          <p>Upload a ZIP file with SVG icons</p>
+        </button>
+        
+        <button class="action-card" id="btn-audit">
+          <div class="card-icon">🔍</div>
+          <h3>Audit Existing Library</h3>
+          <p>Scan and analyze current icons</p>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Browse Screen -->
+    <div id="browse-screen" class="screen hidden">
+      <div class="header">
+        <button class="btn-back" id="btn-back-from-browse">← Back</button>
+        <h2>Browse Icon Library</h2>
+      </div>
+      
+      <div class="browse-controls">
+        <div class="search-box">
+          <input 
+            type="text" 
+            id="icon-search" 
+            placeholder="Search icons..."
+            autocomplete="off"
+          />
+        </div>
+        
+        <div class="filters">
+          <select id="filter-type">
+            <option value="">All Types</option>
+            <option value="outline">Outline</option>
+            <option value="filled">Filled</option>
+            <option value="duo-tone">Duo-tone</option>
+          </select>
+          
+          <select id="filter-style">
+            <option value="">All Styles</option>
+          </select>
+          
+          <select id="filter-size">
+            <option value="">All Sizes</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="browse-stats">
+        <span id="browse-count">0 icons</span>
+        <button class="btn-secondary btn-sm" id="btn-autofill-all">
+          🪄 Auto-fill All Metadata
+        </button>
+      </div>
+      
+      <div id="icon-grid" class="icon-grid">
+        <!-- Icons will be rendered here -->
+      </div>
+      
+      <!-- Metadata Editor Modal -->
+      <div id="metadata-modal" class="modal hidden">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3>Edit Metadata</h3>
+            <button class="btn-close" id="btn-close-metadata">×</button>
+          </div>
+          
+          <div class="modal-body">
+            <div id="metadata-icon-preview" class="metadata-preview"></div>
+            <h4 id="metadata-icon-name"></h4>
+            
+            <div class="form-group">
+              <label>Category</label>
+              <select id="metadata-category">
+                <option value="">None</option>
+                <option value="ui">UI Elements</option>
+                <option value="navigation">Navigation</option>
+                <option value="social">Social Media</option>
+                <option value="files">Files & Documents</option>
+                <option value="communication">Communication</option>
+                <option value="media">Media & Audio</option>
+                <option value="editing">Editing & Design</option>
+                <option value="arrows">Arrows & Directions</option>
+                <option value="shapes">Shapes & Symbols</option>
+                <option value="weather">Weather</option>
+                <option value="business">Business & Finance</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label>Tags (comma-separated)</label>
+              <input 
+                type="text" 
+                id="metadata-tags" 
+                placeholder="e.g., navigation, arrow, direction"
+              />
+              <small>Use keywords that describe this icon</small>
+            </div>
+            
+            <div class="form-group">
+              <label>Description</label>
+              <textarea 
+                id="metadata-description" 
+                rows="3"
+                placeholder="Brief description of what this icon represents"
+              ></textarea>
+            </div>
+          </div>
+          
+          <div class="modal-actions">
+            <button class="btn-secondary" id="btn-autofill-metadata">🪄 Auto-fill</button>
+            <div style="flex: 1"></div>
+            <button class="btn-secondary" id="btn-cancel-metadata">Cancel</button>
+            <button class="btn-primary" id="btn-save-metadata">Save Metadata</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Import Screen -->
+    <div id="import-screen" class="screen hidden">
+      <div class="header">
+        <button class="btn-back" id="btn-back-from-import">← Back</button>
+        <h2>Import SVG Zip</h2>
+      </div>
+      
+      <div class="form-section">
+        <div class="form-group">
+          <label>Select ZIP File</label>
+          <input type="file" id="zip-input" accept=".zip" />
+        </div>
+        
+        <div class="form-group">
+          <label>Sizes to import (px)</label>
+          <input 
+            type="text" 
+            id="sizes-input" 
+            placeholder="e.g., 16,24,32 or leave empty"
+          />
+          <small>Comma-separated. Empty = preserve original size</small>
+        </div>
+        
+        <div class="form-group">
+          <label>Allowed stroke weights (px)</label>
+          <input 
+            type="text" 
+            id="stroke-weights-input" 
+            placeholder="e.g., 1.5,2"
+            value="1.5,2"
+          />
+          <small>Used for audit validation</small>
+        </div>
+        
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="outline-policy" />
+            <span>Outline-only policy (flag filled vectors)</span>
+          </label>
+        </div>
+        
+        <button class="btn-primary" id="btn-run-import">
+          Import Icons
+        </button>
+        
+        <div id="import-progress" class="progress-section hidden">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+          <p class="progress-text" id="progress-text">Processing...</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Audit Screen -->
+    <div id="audit-screen" class="screen hidden">
+      <div class="header">
+        <button class="btn-back" id="btn-back-from-audit">← Back</button>
+        <h2>Audit Library</h2>
+      </div>
+      
+      <div class="form-section">
+        <div class="form-group">
+          <label>Audit Scope</label>
+          <select id="audit-scope">
+            <option value="page">Current Page</option>
+            <option value="selection">Selected Frame/Nodes</option>
+            <option value="all-components">All Components in File</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label>Allowed stroke weights (px)</label>
+          <input 
+            type="text" 
+            id="audit-stroke-weights" 
+            placeholder="e.g., 1, 1.5, 2"
+            value="1"
+          />
+        </div>
+        
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="audit-outline-policy" />
+            <span>Outline-only policy</span>
+          </label>
+        </div>
+        
+        <button class="btn-primary" id="btn-run-audit">
+          Run Audit
+        </button>
+      </div>
+      
+      <!-- Audit Results -->
+      <div id="audit-results" class="hidden">
+        <div class="results-header">
+          <h3>Audit Results</h3>
+          <div class="health-score" id="health-score">
+            <span class="score-label">Health Score:</span>
+            <span class="score-value" id="score-value">--</span>
+          </div>
+        </div>
+        
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-value" id="stat-scanned">0</div>
+            <div class="stat-label">Nodes Scanned</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="stat-issues">0</div>
+            <div class="stat-label">Issues Found</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="stat-duplicates">0</div>
+            <div class="stat-label">Duplicate Groups</div>
+          </div>
+        </div>
+        
+        <div class="issues-section">
+          <div class="issues-header">
+            <h4>Issues</h4>
+            <div class="filter-buttons">
+              <button class="filter-btn active" data-filter="all">All</button>
+              <button class="filter-btn" data-filter="duplicate">Duplicates</button>
+              <button class="filter-btn" data-filter="stroke-thickness">Strokes</button>
+              <button class="filter-btn" data-filter="fill-policy">Fills</button>
+              <button class="filter-btn" data-filter="geometry">Geometry</button>
+              <button class="filter-btn" data-filter="naming">Naming</button>
+            </div>
+          </div>
+          
+          <div id="issues-list" class="issues-list"></div>
+          
+          <div class="actions-bar">
+            <button class="btn-secondary" id="btn-select-all-issues">Select All</button>
+            <button class="btn-secondary" id="btn-deselect-all-issues">Deselect All</button>
+            <button class="btn-primary" id="btn-fix-selected">Fix Selected</button>
+            <button class="btn-secondary" id="btn-export-report">Export Report</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Fix Preview Modal -->
+    <div id="fix-preview-modal" class="modal hidden">
+      <div class="modal-content">
+        <h3>Fix Preview</h3>
+        <p>The following changes will be applied:</p>
+        <ul id="fix-preview-list" class="preview-list"></ul>
+        <div class="modal-actions">
+          <button class="btn-secondary" id="btn-cancel-fix">Cancel</button>
+          <button class="btn-primary" id="btn-confirm-fix">Apply Fixes</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Duplicate Viewer -->
+    <div id="duplicate-viewer" class="duplicate-viewer hidden">
+      <div class="viewer-header">
+        <h4>Duplicate Group</h4>
+        <button class="btn-close" id="btn-close-duplicate-viewer">×</button>
+      </div>
+      <div class="viewer-content">
+        <p id="duplicate-info">Viewing 1/3</p>
+        <div class="viewer-actions">
+          <button class="btn-secondary btn-sm" id="btn-zoom-current">Zoom to This</button>
+          <button class="btn-secondary btn-sm" id="btn-next-duplicate">Next</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script type="module" src="./ui.ts"></script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+SOLUÇÃO: Pasta src/utils/ Faltando
+====================================
+
+PROBLEMA:
+A pasta src/utils/ não existe ou está vazia.
+Por isso o build falha com "Could not resolve ./utils/..."
+
+SOLUÇÃO IMEDIATA:
+-----------------
+
+1. Crie a pasta utils dentro de src/:
+
+   mkdir -p src/utils
+
+2. Baixe os 5 arquivos .ts acima e coloque em src/utils/:
+   
+   ✅ svg-parser.ts
+   ✅ variant-utils.ts  
+   ✅ layout-utils.ts
+   ✅ audit-engine.ts
+   ✅ fix-engine.ts
+
+3. Verifique a estrutura:
+
+   ls -la src/utils/
+
+   Deve mostrar:
+   -rw-r--r--  audit-engine.ts
+   -rw-r--r--  fix-engine.ts
+   -rw-r--r--  layout-utils.ts
+   -rw-r--r--  svg-parser.ts
+   -rw-r--r--  variant-utils.ts
+
+4. Execute novamente:
+
+   npm run build
+   npm run verify
+
+
+ESTRUTURA FINAL CORRETA:
+------------------------
+
+icon-guardian/
+├── src/
+│   ├── main.ts
+│   ├── ui.ts
+│   ├── ui.html
+│   ├── styles.css
+│   ├── types.ts
+│   └── utils/              ← ESTA PASTA COM 5 ARQUIVOS .ts
+│       ├── svg-parser.ts
+│       ├── variant-utils.ts
+│       ├── layout-utils.ts
+│       ├── audit-engine.ts
+│       └── fix-engine.ts
+├── manifest.json
+├── package.json
+└── build.js
+
+
+VERIFICAÇÃO RÁPIDA:
+-------------------
+
+Execute este comando para ver a estrutura:
+
+find src -type f -name "*.ts"
+
+Deve mostrar:
+src/main.ts
+src/types.ts
+src/ui.ts
+src/utils/audit-engine.ts
+src/utils/fix-engine.ts
+src/utils/layout-utils.ts
+src/utils/svg-parser.ts
+src/utils/variant-utils.ts
+
+
+APÓS ORGANIZAR:
+---------------
+
+npm run build
+
+Deve mostrar:
+✅ main.js built successfully
+✅ ui.html built successfully
+
+Então execute:
+npm run verify
+
+Deve mostrar 9/9 checks passed ✅

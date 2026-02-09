@@ -1,0 +1,108 @@
+CHECKLIST COMPLETO - Icon Guardian
+===================================
+
+📋 TODOS OS ARQUIVOS QUE VOCÊ PRECISA BAIXAR E ONDE COLOCÁ-LOS:
+
+════════════════════════════════════════════════════════════════
+
+📁 RAIZ DA PASTA icon-guardian/
+--------------------------------
+✅ manifest.json
+✅ package.json
+✅ build.js
+✅ tsconfig.json
+✅ vite.config.ts
+✅ .gitignore
+✅ verify.js
+✅ fix-structure.js
+
+📁 PASTA src/ (criar se não existir)
+-------------------------------------
+✅ main.ts
+✅ types.ts
+✅ ui.ts
+✅ ui.html
+✅ styles.css
+
+📁 PASTA src/utils/ (criar se não existir)
+-------------------------------------------
+✅ svg-parser.ts
+✅ variant-utils.ts
+✅ layout-utils.ts
+✅ audit-engine.ts
+✅ fix-engine.ts
+
+════════════════════════════════════════════════════════════════
+
+COMANDOS PARA CRIAR AS PASTAS:
+-------------------------------
+
+cd icon-guardian
+mkdir -p src
+mkdir -p src/utils
+
+
+DEPOIS DE BAIXAR TODOS OS ARQUIVOS:
+------------------------------------
+
+1. Verifique se está tudo OK:
+   npm run verify
+
+2. Build:
+   npm run build
+
+3. Se o build funcionar, você verá:
+   ✅ main.js built successfully
+   ✅ ui.html built successfully
+
+
+DOWNLOAD DOS ARQUIVOS:
+-----------------------
+
+TODOS os arquivos acima estão disponíveis para download.
+Baixe cada um e coloque na pasta correta conforme indicado.
+
+Arquivos src/:
+- main.ts → src/main.ts
+- types.ts → src/types.ts  
+- ui.ts → src/ui.ts
+- ui.html → src/ui.html
+- styles.css → src/styles.css
+
+Arquivos src/utils/:
+- svg-parser.ts → src/utils/svg-parser.ts
+- variant-utils.ts → src/utils/variant-utils.ts
+- layout-utils.ts → src/utils/layout-utils.ts
+- audit-engine.ts → src/utils/audit-engine.ts
+- fix-engine.ts → src/utils/fix-engine.ts
+
+
+VERIFICAÇÃO FINAL:
+------------------
+
+Execute este comando para ver todos os arquivos TypeScript:
+
+find src -name "*.ts"
+
+Deve mostrar EXATAMENTE 8 arquivos:
+src/main.ts
+src/types.ts
+src/ui.ts
+src/utils/audit-engine.ts
+src/utils/fix-engine.ts
+src/utils/layout-utils.ts
+src/utils/svg-parser.ts
+src/utils/variant-utils.ts
+
+Se faltarem arquivos, baixe novamente!
+
+
+ORDEM DE EXECUÇÃO:
+------------------
+
+1. npm install           (se ainda não fez)
+2. npm run verify        (verifica arquivos)
+3. npm run build         (compila)
+4. npm run verify        (verifica build)
+
+Se tudo estiver ✅, carregue no Figma!

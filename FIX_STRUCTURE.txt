@@ -1,0 +1,95 @@
+CORREÇÃO MANUAL - Estrutura de Arquivos
+========================================
+
+PROBLEMA IDENTIFICADO:
+Os arquivos foram baixados mas estão na estrutura errada.
+Você tem uma pasta "ui/" que não deveria existir.
+
+SOLUÇÃO RÁPIDA (via script):
+----------------------------
+
+1. Baixe o arquivo "fix-structure.js"
+2. Coloque na raiz da pasta icon-guardian/
+3. Execute: node fix-structure.js
+4. Execute: npm run build
+
+
+SOLUÇÃO MANUAL (se o script não funcionar):
+--------------------------------------------
+
+Mova os seguintes arquivos:
+
+DE: ui/ui.ts          → PARA: src/ui.ts
+DE: ui/ui.css         → PARA: src/styles.css  
+DE: ui/index.html     → PARA: src/ui.html
+
+(Se os arquivos .ts, .html, .css estiverem na raiz, mova-os para src/)
+
+
+ESTRUTURA CORRETA FINAL:
+-------------------------
+
+icon-guardian/
+├── manifest.json
+├── package.json
+├── build.js
+├── tsconfig.json
+├── verify.js
+├── vite.config.ts
+├── .gitignore
+│
+├── src/                    ← TODOS os .ts, .html, .css vão AQUI
+│   ├── main.ts
+│   ├── ui.ts
+│   ├── ui.html
+│   ├── styles.css
+│   ├── types.ts
+│   │
+│   └── utils/              ← Arquivos de utilitários AQUI
+│       ├── svg-parser.ts
+│       ├── variant-utils.ts
+│       ├── layout-utils.ts
+│       ├── audit-engine.ts
+│       └── fix-engine.ts
+│
+└── dist/                   ← Criada automaticamente pelo build
+    ├── main.js
+    └── ui.html
+
+
+PASTAS QUE NÃO DEVEM EXISTIR:
+------------------------------
+
+❌ ui/          (delete esta pasta após mover os arquivos)
+❌ plugin/      (se existir, delete)
+
+
+VERIFICAÇÃO:
+------------
+
+Após organizar, execute:
+  node verify.js
+
+Deve mostrar:
+  ✅ Source files exist
+  ✅ Utils folder exists
+  ...
+
+
+DEPOIS DE ORGANIZAR:
+--------------------
+
+npm run build
+npm run verify
+
+Se tudo estiver OK, carregue no Figma!
+
+
+NOTA IMPORTANTE:
+----------------
+
+Os arquivos baixados do Claude tem nomes diferentes:
+- "ui.css" deveria ser "styles.css"
+- "index.html" deveria ser "ui.html"
+
+Renomeie ao mover para src/

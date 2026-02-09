@@ -1,0 +1,66 @@
+ICON GUARDIAN - INSTRUÇÕES DE INSTALAÇÃO
+=========================================
+
+COMANDOS PARA RODAR (copie e cole no terminal):
+------------------------------------------------
+
+cd icon-guardian
+npm install
+npm run build
+npm run verify
+
+
+O QUE VOCÊ DEVE VER:
+--------------------
+
+Após "npm run build":
+  ✅ main.js built successfully
+  ✅ ui.html built successfully
+
+Após "npm run verify":
+  ✅ Source files exist
+  ✅ Utils folder exists
+  ✅ Manifest exists
+  ✅ Build script exists
+  ✅ node_modules installed
+  ✅ dist/main.js exists
+  ✅ dist/ui.html exists
+  ✅ main.js has content
+  ✅ ui.html has content
+  
+  🎉 All checks passed! Plugin is ready to use.
+
+
+CARREGAR NO FIGMA:
+------------------
+
+1. Abra Figma Desktop App (NÃO a versão web)
+2. Menu: Plugins → Development → Import plugin from manifest...
+3. Navegue até a pasta "icon-guardian"
+4. Selecione o arquivo "manifest.json"
+5. Pronto! O plugin está disponível
+
+
+SE DER ERRO NO BUILD:
+---------------------
+
+Tente:
+  rm -rf node_modules package-lock.json dist
+  npm install
+  npm run build
+  npm run verify
+
+
+MAIS INFORMAÇÕES:
+-----------------
+
+- START_HERE.md    → Instruções detalhadas
+- COMMANDS.md      → Referência rápida de comandos
+- BUILD_FIX.md     → Solução de problemas de build
+- README.md        → Documentação completa do plugin
+- QUICKSTART.md    → Tutorial de uso
+
+---
+
+Icon Guardian v1.0.0
+Plugin para gerenciamento profissional de bibliotecas de ícones no Figma

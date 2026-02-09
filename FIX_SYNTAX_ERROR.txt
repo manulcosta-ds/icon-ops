@@ -1,0 +1,71 @@
+CORREÇÃO: Erro de Syntax "Unexpected token ."
+==============================================
+
+PROBLEMA:
+Syntax error on line 2770: Unexpected token .
+const lastPart = parts[parts.length - 1]?.toLowerCase();
+                                         ^
+
+CAUSA:
+O operador de optional chaining (?.) não é suportado pelo Figma.
+
+SOLUÇÃO:
+Baixe e substitua os 3 arquivos CORRIGIDOS:
+
+1. src/ui.ts           ← CORRIGIDO (removi todos os ?.)
+2. src/utils/svg-parser.ts     ← CORRIGIDO
+3. src/utils/fix-engine.ts     ← CORRIGIDO
+
+PASSOS:
+
+1. Baixe os 3 arquivos acima (disponíveis para download)
+
+2. Substitua os arquivos na sua pasta:
+   - ui.ts → src/ui.ts
+   - svg-parser.ts → src/utils/svg-parser.ts
+   - fix-engine.ts → src/utils/fix-engine.ts
+
+3. Execute:
+   npm run build
+
+4. Deve aparecer:
+   ✅ main.js built successfully
+   ✅ ui.html built successfully
+
+5. Carregue no Figma:
+   Plugins → Development → Import plugin from manifest...
+   Selecione manifest.json
+
+6. Rode o plugin!
+
+
+O QUE FOI CORRIGIDO:
+
+Substituí TODOS os optional chaining (?.) por verificações explícitas:
+
+ANTES:
+document.getElementById('btn-import')?.addEventListener(...)
+const lastPart = parts[parts.length - 1]?.toLowerCase();
+
+DEPOIS:
+const btn = document.getElementById('btn-import');
+if (btn) btn.addEventListener(...)
+
+const lastPart = parts.length > 0 ? parts[parts.length - 1].toLowerCase() : '';
+
+
+TOTAL DE CORREÇÕES:
+- src/ui.ts: ~40 usos de ?. removidos
+- src/utils/svg-parser.ts: 1 uso removido
+- src/utils/fix-engine.ts: 4 usos removidos
+
+
+VERIFICAÇÃO:
+
+Após substituir os arquivos:
+grep -r "?\." src/ --include="*.ts"
+
+Deve retornar: (nada - nenhum resultado)
+
+
+AGORA VAI FUNCIONAR! 🎉

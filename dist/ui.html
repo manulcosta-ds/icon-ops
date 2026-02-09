@@ -1,0 +1,2191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Icon Guardian</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231A1A2E'/%3E%3Cpath d='M16 6l2.5 5.5L24 13l-4 4 1 5.5L16 20l-5 2.5 1-5.5-4-4 5.5-1.5z' fill='%23FFD43B' stroke='%231A1A2E' stroke-width='0.5'/%3E%3Ccircle cx='16' cy='14' r='3' fill='%23FF6B6B'/%3E%3C/svg%3E">
+  <style>@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+/* === DESIGN TOKENS === */
+:root {
+  --yellow: #FFD43B;
+  --yellow-light: #FFF3BF;
+  --coral: #FF6B6B;
+  --coral-light: #FFE3E3;
+  --teal: #20C997;
+  --teal-light: #C3FAE8;
+  --purple: #9775FA;
+  --purple-light: #E5DBFF;
+  --blue: #339AF0;
+  --blue-light: #D0EBFF;
+  --dark: #1A1A2E;
+  --dark-mid: #2D2D44;
+  --gray-100: #F8F9FA;
+  --gray-200: #E9ECEF;
+  --gray-400: #ADB5BD;
+  --gray-600: #6C757D;
+  --white: #FFFFFF;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 50px;
+  --shadow-pop: 4px 4px 0px var(--dark);
+  --shadow-pop-sm: 3px 3px 0px var(--dark);
+  --shadow-pop-hover: 6px 6px 0px var(--dark);
+  --border: 2.5px solid var(--dark);
+  --font-display: 'Space Mono', monospace;
+  --font-body: 'DM Sans', sans-serif;
+  --transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* === RESET === */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--dark);
+  background: var(--yellow-light);
+  overflow-y: auto;
+  background-image: 
+    radial-gradient(circle at 15% 20%, rgba(255, 107, 107, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 85% 80%, rgba(151, 117, 250, 0.12) 0%, transparent 50%);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* === SCREENS === */
+.screen {
+  padding: 20px;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === HEADER === */
+.header {
+  margin-bottom: 24px;
+}
+
+.header h1 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--dark);
+  text-transform: uppercase;
+  position: relative;
+  display: inline-block;
+}
+
+.header h1::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: var(--yellow);
+  border-radius: 3px;
+  z-index: -1;
+}
+
+.header h2 {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: var(--dark);
+  font-weight: 500;
+  margin-top: 6px;
+}
+
+/* === BUTTONS === */
+button {
+  font-family: var(--font-body);
+  font-size: 13px;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+  font-weight: 600;
+}
+
+.btn-primary {
+  background: var(--coral);
+  color: var(--white);
+  padding: 12px 20px;
+  font-weight: 700;
+  width: 100%;
+  border: var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-pop);
+  text-transform: uppercase;
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+.btn-primary:hover {
+  background: #FF5252;
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-pop-hover);
+}
+
+.btn-primary:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px var(--dark);
+}
+
+.btn-secondary {
+  background: var(--white);
+  color: var(--dark);
+  padding: 8px 16px;
+  font-weight: 600;
+  border: 2px solid var(--dark);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-pop-sm);
+}
+
+.btn-secondary:hover {
+  background: var(--yellow-light);
+  transform: translate(-1px, -1px);
+  box-shadow: var(--shadow-pop);
+}
+
+.btn-secondary:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px var(--dark);
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 11px;
+}
+
+.btn-back {
+  background: transparent;
+  color: var(--dark);
+  padding: 6px 0;
+  font-weight: 700;
+  margin-bottom: 14px;
+  font-family: var(--font-display);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: none;
+  box-shadow: none;
+}
+
+.btn-back:hover {
+  color: var(--coral);
+}
+
+.btn-close {
+  background: transparent;
+  color: var(--gray-400);
+  font-size: 24px;
+  padding: 0;
+  width: 28px;
+  height: 28px;
+  line-height: 1;
+  border: none;
+  box-shadow: none;
+}
+
+.btn-close:hover {
+  color: var(--coral);
+}
+
+/* === ACTION CARDS (Home Screen) === */
+.action-cards {
+  display: grid;
+  gap: 14px;
+}
+
+.action-card {
+  background: var(--white);
+  border: var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  text-align: left;
+  box-shadow: var(--shadow-pop);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.action-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+}
+
+.action-card:nth-child(1)::before { background: var(--teal); }
+.action-card:nth-child(2)::before { background: var(--yellow); }
+.action-card:nth-child(3)::before { background: var(--purple); }
+
+.action-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: var(--shadow-pop-hover);
+}
+
+.action-card:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px var(--dark);
+}
+
+.card-icon {
+  font-size: 28px;
+  margin-bottom: 10px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--dark);
+}
+
+.action-card:nth-child(1) .card-icon { background: var(--teal-light); }
+.action-card:nth-child(2) .card-icon { background: var(--yellow-light); }
+.action-card:nth-child(3) .card-icon { background: var(--purple-light); }
+
+.action-card h3 {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: -0.2px;
+}
+
+.action-card p {
+  font-size: 12px;
+  color: var(--dark);
+  font-weight: 500;
+}
+
+/* === FORM === */
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-weight: 700;
+  font-size: 11px;
+  color: var(--dark);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: var(--font-display);
+}
+
+.form-group input[type="text"],
+.form-group input[type="file"],
+.form-group select {
+  padding: 10px 14px;
+  border: 2px solid var(--dark);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 13px;
+  background: var(--white);
+  transition: var(--transition);
+}
+
+.form-group input[type="text"]:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px var(--blue-light);
+}
+
+.form-group small {
+  font-size: 11px;
+  color: var(--gray-600);
+  font-style: italic;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--coral);
+}
+
+/* === PROGRESS === */
+.progress-section {
+  margin-top: 16px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  background: var(--white);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  margin-bottom: 10px;
+  border: 2px solid var(--dark);
+}
+
+.progress-fill {
+  height: 100%;
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--teal),
+    var(--teal) 8px,
+    #38D9A9 8px,
+    #38D9A9 16px
+  );
+  transition: width 0.4s ease;
+  width: 0;
+  animation: barberpole 1s linear infinite;
+}
+
+@keyframes barberpole {
+  from { background-position: 0 0; }
+  to { background-position: 22.6px 0; }
+}
+
+.progress-text {
+  font-size: 12px;
+  color: var(--gray-600);
+  text-align: center;
+  font-weight: 600;
+}
+
+/* === AUDIT RESULTS === */
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.results-header h3 {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.health-score {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.score-label {
+  font-size: 11px;
+  color: var(--gray-600);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.score-value {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--dark);
+}
+
+.score-excellent { background: var(--teal-light); color: #087F5B; }
+.score-good { background: var(--blue-light); color: #1864AB; }
+.score-fair { background: var(--yellow-light); color: #E67700; }
+.score-poor { background: var(--coral-light); color: #C92A2A; }
+
+/* === STATS GRID === */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: var(--white);
+  border: var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px 10px;
+  text-align: center;
+  box-shadow: var(--shadow-pop-sm);
+}
+
+.stat-card:nth-child(1) { border-top: 5px solid var(--teal); }
+.stat-card:nth-child(2) { border-top: 5px solid var(--coral); }
+.stat-card:nth-child(3) { border-top: 5px solid var(--purple); }
+
+.stat-value {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 2px;
+}
+
+.stat-label {
+  font-size: 10px;
+  color: var(--gray-600);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+/* === ISSUES SECTION === */
+.issues-section {
+  margin-top: 24px;
+}
+
+.issues-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.issues-header h4 {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background: var(--white);
+  color: var(--gray-600);
+  padding: 6px 12px;
+  font-size: 11px;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--gray-200);
+  font-weight: 600;
+}
+
+.filter-btn:hover {
+  border-color: var(--dark);
+  color: var(--dark);
+}
+
+.filter-btn.active {
+  background: var(--dark);
+  color: var(--yellow);
+  border-color: var(--dark);
+}
+
+/* === ISSUES LIST === */
+.issues-list {
+  max-height: 300px;
+  overflow-y: auto;
+  border: var(--border);
+  border-radius: var(--radius-md);
+  margin-bottom: 16px;
+  background: var(--white);
+}
+
+.no-issues {
+  padding: 32px;
+  text-align: center;
+  color: var(--gray-400);
+  font-weight: 600;
+}
+
+.issue-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 14px;
+  border-bottom: 2px solid var(--gray-100);
+  transition: var(--transition);
+}
+
+.issue-item:last-child {
+  border-bottom: none;
+}
+
+.issue-item:hover {
+  background: var(--yellow-light);
+}
+
+.issue-item input[type="checkbox"] {
+  flex-shrink: 0;
+  margin-top: 2px;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--coral);
+}
+
+.btn-ignore {
+  flex-shrink: 0;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gray-600);
+  background: var(--gray-100);
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-ignore:hover {
+  background: var(--coral-light);
+  color: var(--coral);
+  border-color: var(--coral);
+}
+
+.btn-ignore:active {
+  background: #ffcccc;
+}
+
+.issue-content {
+  flex: 1;
+  cursor: pointer;
+}
+
+.issue-header {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.issue-type {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--dark);
+  letter-spacing: 0.3px;
+}
+
+.issue-severity {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.severity-error .issue-severity {
+  background: var(--coral);
+  color: var(--white);
+}
+
+.severity-warning .issue-severity {
+  background: var(--yellow);
+  color: var(--dark);
+}
+
+.severity-info .issue-severity {
+  background: var(--blue-light);
+  color: #1864AB;
+}
+
+.issue-message {
+  font-size: 12px;
+  color: var(--dark);
+  margin-bottom: 2px;
+  font-weight: 500;
+}
+
+.issue-node {
+  font-size: 10px;
+  color: var(--gray-400);
+  font-family: var(--font-display);
+}
+
+/* === ACTIONS BAR === */
+.actions-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.actions-bar .btn-primary {
+  flex: 1;
+  min-width: 120px;
+}
+
+/* === MODAL === */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(26, 26, 46, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content {
+  background: var(--white);
+  border: var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 8px 8px 0px var(--dark);
+  animation: popIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.9) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-content h3 {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.modal-content p {
+  margin-bottom: 16px;
+  color: var(--gray-600);
+  font-weight: 500;
+}
+
+.preview-list {
+  list-style: none;
+  margin-bottom: 24px;
+  padding: 16px;
+  background: var(--gray-100);
+  border-radius: var(--radius-md);
+  max-height: 200px;
+  overflow-y: auto;
+  border: 2px solid var(--gray-200);
+}
+
+.preview-list li {
+  padding: 6px 0;
+  font-size: 12px;
+  color: var(--dark);
+  font-weight: 500;
+}
+
+.preview-list li:before {
+  content: "→ ";
+  color: var(--teal);
+  font-weight: 700;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.modal-actions .btn-secondary,
+.modal-actions .btn-primary {
+  width: auto;
+  padding: 10px 18px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+/* === DUPLICATE VIEWER === */
+.duplicate-viewer {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  background: var(--white);
+  border: var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow: var(--shadow-pop);
+  min-width: 240px;
+  z-index: 100;
+}
+
+.viewer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.viewer-header h4 {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.viewer-content p {
+  font-size: 12px;
+  color: var(--gray-600);
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.viewer-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.viewer-actions button {
+  flex: 1;
+}
+
+/* === BATCH RENAME === */
+.batch-rename-section {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 3px dashed var(--gray-200);
+}
+
+.batch-rename-section h3 {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  color: var(--dark);
+}
+
+.section-description {
+  font-size: 12px;
+  color: var(--gray-600);
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+/* === BROWSE SCREEN === */
+.browse-controls {
+  margin-bottom: 20px;
+}
+
+.search-box {
+  margin-bottom: 12px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 12px 16px;
+  border: var(--border);
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-family: var(--font-body);
+  background: var(--white);
+  transition: var(--transition);
+  font-weight: 500;
+}
+
+.search-box input:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px var(--blue-light);
+}
+
+.search-box input::placeholder {
+  color: var(--gray-400);
+}
+
+.filters {
+  display: flex;
+  gap: 8px;
+}
+
+.filters select {
+  flex: 1;
+  padding: 8px 12px;
+  border: 2px solid var(--dark);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-family: var(--font-body);
+  background: var(--white);
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.filters select:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px var(--blue-light);
+}
+
+.browse-stats {
+  font-size: 12px;
+  color: var(--gray-600);
+  margin-bottom: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+}
+
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding: 2px;
+}
+
+.icon-card-browse {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 10px;
+  border: 2px solid var(--dark);
+  border-radius: var(--radius-md);
+  background: var(--white);
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  box-shadow: 2px 2px 0px var(--dark);
+}
+
+.icon-card-browse:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-pop);
+  background: var(--yellow-light);
+}
+
+.icon-card-browse:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px var(--dark);
+}
+
+.icon-preview {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-preview img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.icon-info {
+  text-align: center;
+  width: 100%;
+}
+
+.icon-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.icon-meta {
+  font-size: 10px;
+  color: var(--gray-400);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.no-icons {
+  text-align: center;
+  color: var(--gray-400);
+  padding: 40px 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* === METADATA EDITOR MODAL === */
+.metadata-preview {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gray-100);
+  border-radius: var(--radius-md);
+  border: 2px solid var(--dark);
+}
+
+.metadata-preview img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.modal-body h4 {
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--dark);
+  text-transform: uppercase;
+}
+
+.modal-body small {
+  display: block;
+  font-size: 11px;
+  color: var(--gray-400);
+  margin-top: 4px;
+  font-style: italic;
+}
+
+.modal-body textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid var(--dark);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-family: var(--font-body);
+  resize: vertical;
+  transition: var(--transition);
+}
+
+.modal-body textarea:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px var(--blue-light);
+}
+
+/* === ICON TAGS & BADGES === */
+.icon-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-top: 4px;
+  justify-content: center;
+}
+
+.icon-tag {
+  font-size: 9px;
+  padding: 2px 7px;
+  background: var(--blue-light);
+  color: #1864AB;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+}
+
+.icon-category {
+  font-size: 9px;
+  padding: 2px 7px;
+  background: var(--purple-light);
+  color: #7048E8;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  margin-top: 4px;
+  display: inline-block;
+}
+
+.icon-type {
+  font-size: 8px;
+  padding: 2px 6px;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  margin-top: 4px;
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.icon-type-outline {
+  background: var(--teal-light);
+  color: #087F5B;
+}
+
+.icon-type-filled {
+  background: var(--blue-light);
+  color: #1864AB;
+}
+
+.icon-type-duo-tone {
+  background: var(--yellow-light);
+  color: #E67700;
+}
+
+.icon-type-mixed {
+  background: var(--gray-200);
+  color: var(--gray-600);
+}
+
+.icon-actions {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.icon-card-browse:hover .icon-actions {
+  opacity: 1;
+}
+
+.btn-edit-metadata {
+  padding: 4px 8px;
+  font-size: 10px;
+  background: var(--white);
+  border: 2px solid var(--dark);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: var(--dark);
+  font-weight: 700;
+  box-shadow: 1px 1px 0px var(--dark);
+}
+
+.btn-edit-metadata:hover {
+  background: var(--yellow-light);
+  transform: translate(-1px, -1px);
+  box-shadow: 2px 2px 0px var(--dark);
+}
+
+/* === SCROLLBAR === */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--gray-100);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gray-400);
+  border-radius: 4px;
+  border: 2px solid var(--gray-100);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--dark);
+}
+</style>
+</head>
+<body>
+  <div id="app">
+    <!-- Home Screen -->
+    <div id="home-screen" class="screen">
+      <div class="header">
+        <h1>Icon Guardian</h1>
+        <p class="subtitle">Professional icon library management</p>
+      </div>
+      
+      <div class="action-cards">
+        <button class="action-card" id="btn-browse">
+          <div class="card-icon">🎨</div>
+          <h3>Browse Library</h3>
+          <p>Search and insert published icons</p>
+        </button>
+        
+        <button class="action-card" id="btn-import">
+          <div class="card-icon">📦</div>
+          <h3>Import SVG Zip</h3>
+          <p>Upload a ZIP file with SVG icons</p>
+        </button>
+        
+        <button class="action-card" id="btn-audit">
+          <div class="card-icon">🔍</div>
+          <h3>Audit Existing Library</h3>
+          <p>Scan and analyze current icons</p>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Browse Screen -->
+    <div id="browse-screen" class="screen hidden">
+      <div class="header">
+        <button class="btn-back" id="btn-back-from-browse">← Back</button>
+        <h2>Browse Icon Library</h2>
+      </div>
+      
+      <div class="browse-controls">
+        <div class="search-box">
+          <input 
+            type="text" 
+            id="icon-search" 
+            placeholder="Search icons..."
+            autocomplete="off"
+          />
+        </div>
+        
+        <div class="filters">
+          <select id="filter-type">
+            <option value="">All Types</option>
+            <option value="outline">Outline</option>
+            <option value="filled">Filled</option>
+            <option value="duo-tone">Duo-tone</option>
+          </select>
+          
+          <select id="filter-style">
+            <option value="">All Styles</option>
+          </select>
+          
+          <select id="filter-size">
+            <option value="">All Sizes</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="browse-stats">
+        <span id="browse-count">0 icons</span>
+        <button class="btn-secondary btn-sm" id="btn-autofill-all">
+          🪄 Auto-fill All Metadata
+        </button>
+      </div>
+      
+      <div id="icon-grid" class="icon-grid">
+        <!-- Icons will be rendered here -->
+      </div>
+      
+      <!-- Metadata Editor Modal -->
+      <div id="metadata-modal" class="modal hidden">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3>Edit Metadata</h3>
+            <button class="btn-close" id="btn-close-metadata">×</button>
+          </div>
+          
+          <div class="modal-body">
+            <div id="metadata-icon-preview" class="metadata-preview"></div>
+            <h4 id="metadata-icon-name"></h4>
+            
+            <div class="form-group">
+              <label>Category</label>
+              <select id="metadata-category">
+                <option value="">None</option>
+                <option value="ui">UI Elements</option>
+                <option value="navigation">Navigation</option>
+                <option value="social">Social Media</option>
+                <option value="files">Files & Documents</option>
+                <option value="communication">Communication</option>
+                <option value="media">Media & Audio</option>
+                <option value="editing">Editing & Design</option>
+                <option value="arrows">Arrows & Directions</option>
+                <option value="shapes">Shapes & Symbols</option>
+                <option value="weather">Weather</option>
+                <option value="business">Business & Finance</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label>Tags (comma-separated)</label>
+              <input 
+                type="text" 
+                id="metadata-tags" 
+                placeholder="e.g., navigation, arrow, direction"
+              />
+              <small>Use keywords that describe this icon</small>
+            </div>
+            
+            <div class="form-group">
+              <label>Description</label>
+              <textarea 
+                id="metadata-description" 
+                rows="3"
+                placeholder="Brief description of what this icon represents"
+              ></textarea>
+            </div>
+          </div>
+          
+          <div class="modal-actions">
+            <button class="btn-secondary" id="btn-autofill-metadata">🪄 Auto-fill</button>
+            <div style="flex: 1"></div>
+            <button class="btn-secondary" id="btn-cancel-metadata">Cancel</button>
+            <button class="btn-primary" id="btn-save-metadata">Save Metadata</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Import Screen -->
+    <div id="import-screen" class="screen hidden">
+      <div class="header">
+        <button class="btn-back" id="btn-back-from-import">← Back</button>
+        <h2>Import SVG Zip</h2>
+      </div>
+      
+      <div class="form-section">
+        <div class="form-group">
+          <label>Select ZIP File</label>
+          <input type="file" id="zip-input" accept=".zip" />
+        </div>
+        
+        <div class="form-group">
+          <label>Sizes to import (px)</label>
+          <input 
+            type="text" 
+            id="sizes-input" 
+            placeholder="e.g., 16,24,32 or leave empty"
+          />
+          <small>Comma-separated. Empty = preserve original size</small>
+        </div>
+        
+        <div class="form-group">
+          <label>Allowed stroke weights (px)</label>
+          <input 
+            type="text" 
+            id="stroke-weights-input" 
+            placeholder="e.g., 1.5,2"
+            value="1.5,2"
+          />
+          <small>Used for audit validation</small>
+        </div>
+        
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="outline-policy" />
+            <span>Outline-only policy (flag filled vectors)</span>
+          </label>
+        </div>
+        
+        <button class="btn-primary" id="btn-run-import">
+          Import Icons
+        </button>
+        
+        <div id="import-progress" class="progress-section hidden">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+          <p class="progress-text" id="progress-text">Processing...</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Audit Screen -->
+    <div id="audit-screen" class="screen hidden">
+      <div class="header">
+        <button class="btn-back" id="btn-back-from-audit">← Back</button>
+        <h2>Audit Library</h2>
+      </div>
+      
+      <div class="form-section">
+        <div class="form-group">
+          <label>Audit Scope</label>
+          <select id="audit-scope">
+            <option value="page">Current Page</option>
+            <option value="selection">Selected Frame/Nodes</option>
+            <option value="all-components">All Components in File</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label>Allowed stroke weights (px)</label>
+          <input 
+            type="text" 
+            id="audit-stroke-weights" 
+            placeholder="e.g., 1, 1.5, 2"
+            value="1"
+          />
+        </div>
+        
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="audit-outline-policy" />
+            <span>Outline-only policy</span>
+          </label>
+        </div>
+        
+        <button class="btn-primary" id="btn-run-audit">
+          Run Audit
+        </button>
+      </div>
+      
+      <!-- Audit Results -->
+      <div id="audit-results" class="hidden">
+        <div class="results-header">
+          <h3>Audit Results</h3>
+          <div class="health-score" id="health-score">
+            <span class="score-label">Health Score:</span>
+            <span class="score-value" id="score-value">--</span>
+          </div>
+        </div>
+        
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-value" id="stat-scanned">0</div>
+            <div class="stat-label">Nodes Scanned</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="stat-issues">0</div>
+            <div class="stat-label">Issues Found</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="stat-duplicates">0</div>
+            <div class="stat-label">Duplicate Groups</div>
+          </div>
+        </div>
+        
+        <div class="issues-section">
+          <div class="issues-header">
+            <h4>Issues</h4>
+            <div class="filter-buttons">
+              <button class="filter-btn active" data-filter="all">All</button>
+              <button class="filter-btn" data-filter="duplicate">Duplicates</button>
+              <button class="filter-btn" data-filter="stroke-thickness">Strokes</button>
+              <button class="filter-btn" data-filter="fill-policy">Fills</button>
+              <button class="filter-btn" data-filter="geometry">Geometry</button>
+              <button class="filter-btn" data-filter="naming">Naming</button>
+            </div>
+          </div>
+          
+          <div id="issues-list" class="issues-list"></div>
+          
+          <div class="actions-bar">
+            <button class="btn-secondary" id="btn-select-all-issues">Select All</button>
+            <button class="btn-secondary" id="btn-deselect-all-issues">Deselect All</button>
+            <button class="btn-primary" id="btn-fix-selected">Fix Selected</button>
+            <button class="btn-secondary" id="btn-export-report">Export Report</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Fix Preview Modal -->
+    <div id="fix-preview-modal" class="modal hidden">
+      <div class="modal-content">
+        <h3>Fix Preview</h3>
+        <p>The following changes will be applied:</p>
+        <ul id="fix-preview-list" class="preview-list"></ul>
+        <div class="modal-actions">
+          <button class="btn-secondary" id="btn-cancel-fix">Cancel</button>
+          <button class="btn-primary" id="btn-confirm-fix">Apply Fixes</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Duplicate Viewer -->
+    <div id="duplicate-viewer" class="duplicate-viewer hidden">
+      <div class="viewer-header">
+        <h4>Duplicate Group</h4>
+        <button class="btn-close" id="btn-close-duplicate-viewer">×</button>
+      </div>
+      <div class="viewer-content">
+        <p id="duplicate-info">Viewing 1/3</p>
+        <div class="viewer-actions">
+          <button class="btn-secondary btn-sm" id="btn-zoom-current">Zoom to This</button>
+          <button class="btn-secondary btn-sm" id="btn-next-duplicate">Next</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>"use strict";
+(() => {
+  // src/ui.ts
+  var currentAuditReport = null;
+  var selectedIssueIds = /* @__PURE__ */ new Set();
+  var ignoredIssueIds = /* @__PURE__ */ new Set();
+  var currentFilter = "all";
+  var currentDuplicateGroup = null;
+  var allIcons = [];
+  var filteredIcons = [];
+  var editingIconId = null;
+  function simplifyIconName(fullName) {
+    let name = fullName.includes("/") ? fullName.split("/").pop() : fullName;
+    name = name.replace(/\.\w+$/, "");
+    if (name.includes("--")) {
+      name = name.split("--")[0];
+    }
+    const parts = name.split(/[-_\s,]+/).filter(Boolean);
+    const noise = /* @__PURE__ */ new Set(["icon", "ic", "ico", "svg", "img", "asset", "copy", "final", "v2", "v3", "new", "old"]);
+    const cleaned = parts.filter((p) => !noise.has(p.toLowerCase()));
+    const meaningful = cleaned.length > 0 ? cleaned : parts;
+    if (meaningful.length <= 3) {
+      return meaningful.join("-");
+    }
+    return meaningful.slice(0, 3).join("-");
+  }
+  function showScreen(screenId) {
+    document.querySelectorAll(".screen").forEach((s) => s.classList.add("hidden"));
+    const screen = document.getElementById(screenId);
+    if (screen)
+      screen.classList.remove("hidden");
+  }
+  var btnBrowse = document.getElementById("btn-browse");
+  if (btnBrowse) {
+    btnBrowse.addEventListener("click", () => {
+      showScreen("browse-screen");
+      loadPublishedIcons();
+    });
+  }
+  var btnImport = document.getElementById("btn-import");
+  if (btnImport) {
+    btnImport.addEventListener("click", () => {
+      showScreen("import-screen");
+    });
+  }
+  var btnAudit = document.getElementById("btn-audit");
+  if (btnAudit) {
+    btnAudit.addEventListener("click", () => {
+      showScreen("audit-screen");
+    });
+  }
+  var btnBackFromBrowse = document.getElementById("btn-back-from-browse");
+  if (btnBackFromBrowse) {
+    btnBackFromBrowse.addEventListener("click", () => {
+      showScreen("home-screen");
+    });
+  }
+  var btnBackFromImport = document.getElementById("btn-back-from-import");
+  if (btnBackFromImport) {
+    btnBackFromImport.addEventListener("click", () => {
+      showScreen("home-screen");
+    });
+  }
+  var btnBackFromAudit = document.getElementById("btn-back-from-audit");
+  if (btnBackFromAudit) {
+    btnBackFromAudit.addEventListener("click", () => {
+      showScreen("home-screen");
+    });
+  }
+  function loadPublishedIcons() {
+    parent.postMessage({
+      pluginMessage: { type: "load-published-icons" }
+    }, "*");
+  }
+  function displayIcons(icons) {
+    allIcons = icons;
+    filteredIcons = icons;
+    populateFilters();
+    renderIconGrid();
+  }
+  function populateFilters() {
+    const styles = /* @__PURE__ */ new Set();
+    const sizes = /* @__PURE__ */ new Set();
+    allIcons.forEach((icon) => {
+      if (icon.style)
+        styles.add(icon.style);
+      if (icon.size)
+        sizes.add(icon.size);
+    });
+    const styleSelect = document.getElementById("filter-style");
+    if (styleSelect) {
+      styleSelect.innerHTML = '<option value="">All Styles</option>';
+      Array.from(styles).sort().forEach((style) => {
+        const option = document.createElement("option");
+        option.value = style;
+        option.textContent = style;
+        styleSelect.appendChild(option);
+      });
+    }
+    const sizeSelect = document.getElementById("filter-size");
+    if (sizeSelect) {
+      sizeSelect.innerHTML = '<option value="">All Sizes</option>';
+      Array.from(sizes).sort((a, b) => parseInt(a) - parseInt(b)).forEach((size) => {
+        const option = document.createElement("option");
+        option.value = size;
+        option.textContent = `${size}px`;
+        sizeSelect.appendChild(option);
+      });
+    }
+  }
+  function applyFilters() {
+    const searchInput = document.getElementById("icon-search");
+    const typeSelect = document.getElementById("filter-type");
+    const styleSelect = document.getElementById("filter-style");
+    const sizeSelect = document.getElementById("filter-size");
+    const searchTerm = searchInput?.value.toLowerCase() || "";
+    const selectedType = typeSelect?.value || "";
+    const selectedStyle = styleSelect?.value || "";
+    const selectedSize = sizeSelect?.value || "";
+    filteredIcons = allIcons.filter((icon) => {
+      const matchesSearch = !searchTerm || icon.name.toLowerCase().includes(searchTerm) || icon.fullName?.toLowerCase().includes(searchTerm) || icon.metadata?.tags.some((tag) => tag.toLowerCase().includes(searchTerm)) || icon.metadata?.description?.toLowerCase().includes(searchTerm) || icon.metadata?.category?.toLowerCase().includes(searchTerm);
+      const matchesType = !selectedType || icon.iconType === selectedType;
+      const matchesStyle = !selectedStyle || icon.style === selectedStyle;
+      const matchesSize = !selectedSize || icon.size === selectedSize;
+      return matchesSearch && matchesType && matchesStyle && matchesSize;
+    });
+    renderIconGrid();
+  }
+  function openMetadataEditor(icon) {
+    editingIconId = icon.id;
+    const modal = document.getElementById("metadata-modal");
+    const preview = document.getElementById("metadata-icon-preview");
+    const nameEl = document.getElementById("metadata-icon-name");
+    const categoryInput = document.getElementById("metadata-category");
+    const tagsInput = document.getElementById("metadata-tags");
+    const descInput = document.getElementById("metadata-description");
+    if (!modal || !preview || !nameEl || !categoryInput || !tagsInput || !descInput)
+      return;
+    modal.classList.remove("hidden");
+    preview.innerHTML = `<img src="${icon.preview}" alt="${icon.name}" />`;
+    nameEl.textContent = icon.name;
+    categoryInput.value = icon.metadata?.category || "";
+    tagsInput.value = icon.metadata?.tags?.join(", ") || "";
+    descInput.value = icon.metadata?.description || "";
+  }
+  function closeMetadataEditor() {
+    const modal = document.getElementById("metadata-modal");
+    if (modal)
+      modal.classList.add("hidden");
+    editingIconId = null;
+  }
+  function saveMetadata() {
+    if (!editingIconId)
+      return;
+    const categoryInput = document.getElementById("metadata-category");
+    const tagsInput = document.getElementById("metadata-tags");
+    const descInput = document.getElementById("metadata-description");
+    if (!categoryInput || !tagsInput || !descInput)
+      return;
+    const metadata = {
+      category: categoryInput.value,
+      tags: tagsInput.value.split(",").map((t) => t.trim()).filter((t) => t.length > 0),
+      description: descInput.value.trim()
+    };
+    parent.postMessage({
+      pluginMessage: {
+        type: "save-metadata",
+        payload: {
+          iconId: editingIconId,
+          metadata
+        }
+      }
+    }, "*");
+    closeMetadataEditor();
+  }
+  var btnCloseMetadata = document.getElementById("btn-close-metadata");
+  if (btnCloseMetadata) {
+    btnCloseMetadata.addEventListener("click", closeMetadataEditor);
+  }
+  var btnCancelMetadata = document.getElementById("btn-cancel-metadata");
+  if (btnCancelMetadata) {
+    btnCancelMetadata.addEventListener("click", closeMetadataEditor);
+  }
+  var btnSaveMetadata = document.getElementById("btn-save-metadata");
+  if (btnSaveMetadata) {
+    btnSaveMetadata.addEventListener("click", saveMetadata);
+  }
+  var btnAutofillMetadata = document.getElementById("btn-autofill-metadata");
+  if (btnAutofillMetadata) {
+    btnAutofillMetadata.addEventListener("click", autofillCurrentMetadata);
+  }
+  var btnAutofillAll = document.getElementById("btn-autofill-all");
+  if (btnAutofillAll) {
+    btnAutofillAll.addEventListener("click", autofillAllMetadata);
+  }
+  function autofillCurrentMetadata() {
+    if (!editingIconId)
+      return;
+    parent.postMessage({
+      pluginMessage: {
+        type: "autofill-metadata",
+        payload: { iconId: editingIconId }
+      }
+    }, "*");
+  }
+  function autofillAllMetadata() {
+    if (!confirm("Auto-fill metadata for all icons without metadata? This may take a moment.")) {
+      return;
+    }
+    parent.postMessage({
+      pluginMessage: {
+        type: "autofill-all-metadata"
+      }
+    }, "*");
+  }
+  function renderIconGrid() {
+    const grid = document.getElementById("icon-grid");
+    const countSpan = document.getElementById("browse-count");
+    if (!grid)
+      return;
+    if (countSpan) {
+      countSpan.textContent = `${filteredIcons.length} icon${filteredIcons.length !== 1 ? "s" : ""}`;
+    }
+    grid.innerHTML = "";
+    if (filteredIcons.length === 0) {
+      grid.innerHTML = '<div class="no-icons">No icons found</div>';
+      return;
+    }
+    filteredIcons.forEach((icon) => {
+      const card = document.createElement("div");
+      card.className = "icon-card-browse";
+      card.dataset.iconId = icon.id;
+      const actions = document.createElement("div");
+      actions.className = "icon-actions";
+      const editBtn = document.createElement("button");
+      editBtn.className = "btn-edit-metadata";
+      editBtn.textContent = "\u270F\uFE0F";
+      editBtn.title = "Edit metadata";
+      editBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        openMetadataEditor(icon);
+      });
+      actions.appendChild(editBtn);
+      card.appendChild(actions);
+      const preview = document.createElement("div");
+      preview.className = "icon-preview";
+      preview.innerHTML = `<img src="${icon.preview}" alt="${icon.name}" />`;
+      const info = document.createElement("div");
+      info.className = "icon-info";
+      const name = document.createElement("div");
+      name.className = "icon-name";
+      name.textContent = simplifyIconName(icon.name);
+      name.title = icon.fullName || icon.name;
+      const meta = document.createElement("div");
+      meta.className = "icon-meta";
+      const metaParts = [];
+      if (icon.style)
+        metaParts.push(icon.style);
+      if (icon.size)
+        metaParts.push(`${icon.size}px`);
+      meta.textContent = metaParts.join(" \u2022 ");
+      info.appendChild(name);
+      if (metaParts.length > 0)
+        info.appendChild(meta);
+      if (icon.iconType) {
+        const typeBadge = document.createElement("div");
+        typeBadge.className = `icon-type icon-type-${icon.iconType}`;
+        typeBadge.textContent = icon.iconType;
+        info.appendChild(typeBadge);
+      }
+      if (icon.metadata?.category) {
+        const category = document.createElement("div");
+        category.className = "icon-category";
+        category.textContent = icon.metadata.category;
+        info.appendChild(category);
+      }
+      if (icon.metadata?.tags && icon.metadata.tags.length > 0) {
+        const tagsContainer = document.createElement("div");
+        tagsContainer.className = "icon-tags";
+        icon.metadata.tags.slice(0, 3).forEach((tag) => {
+          const tagEl = document.createElement("span");
+          tagEl.className = "icon-tag";
+          tagEl.textContent = tag;
+          tagsContainer.appendChild(tagEl);
+        });
+        info.appendChild(tagsContainer);
+      }
+      card.appendChild(preview);
+      card.appendChild(info);
+      card.addEventListener("click", () => {
+        parent.postMessage({
+          pluginMessage: {
+            type: "insert-icon",
+            payload: { iconId: icon.id }
+          }
+        }, "*");
+      });
+      grid.appendChild(card);
+    });
+  }
+  var iconSearch = document.getElementById("icon-search");
+  if (iconSearch) {
+    iconSearch.addEventListener("input", applyFilters);
+  }
+  var filterType = document.getElementById("filter-type");
+  if (filterType) {
+    filterType.addEventListener("change", applyFilters);
+  }
+  var filterStyle = document.getElementById("filter-style");
+  if (filterStyle) {
+    filterStyle.addEventListener("change", applyFilters);
+  }
+  var filterSize = document.getElementById("filter-size");
+  if (filterSize) {
+    filterSize.addEventListener("change", applyFilters);
+  }
+  var btnRunImport = document.getElementById("btn-run-import");
+  if (btnRunImport) {
+    btnRunImport.addEventListener("click", async () => {
+      const zipInput = document.getElementById("zip-input");
+      const sizesInput = document.getElementById("sizes-input");
+      const strokeWeightsInput = document.getElementById("stroke-weights-input");
+      const outlinePolicyCheckbox = document.getElementById("outline-policy");
+      if (!zipInput.files || zipInput.files.length === 0) {
+        alert("Please select a ZIP file");
+        return;
+      }
+      const file = zipInput.files[0];
+      const zipData = await file.arrayBuffer();
+      const sizesText = sizesInput.value.trim();
+      const sizes = sizesText ? sizesText.split(",").map((s) => parseInt(s.trim())).filter((n) => !isNaN(n)) : [];
+      const strokeWeightsText = strokeWeightsInput.value.trim();
+      const allowedStrokeWeights = strokeWeightsText ? strokeWeightsText.split(",").map((s) => parseFloat(s.trim())).filter((n) => !isNaN(n)) : [];
+      const options = {
+        sizes,
+        allowedStrokeWeights,
+        outlineOnlyPolicy: outlinePolicyCheckbox.checked
+      };
+      const progressSection = document.getElementById("import-progress");
+      if (progressSection)
+        progressSection.classList.remove("hidden");
+      parent.postMessage({
+        pluginMessage: {
+          type: "import-zip",
+          payload: { zipData, options }
+        }
+      }, "*");
+    });
+  }
+  var btnRunAudit = document.getElementById("btn-run-audit");
+  if (btnRunAudit) {
+    btnRunAudit.addEventListener("click", () => {
+      const scopeSelect = document.getElementById("audit-scope");
+      const strokeWeightsInput = document.getElementById("audit-stroke-weights");
+      const outlinePolicyCheckbox = document.getElementById("audit-outline-policy");
+      const strokeWeightsText = strokeWeightsInput.value.trim();
+      const allowedStrokeWeights = strokeWeightsText ? strokeWeightsText.split(",").map((s) => parseFloat(s.trim())).filter((n) => !isNaN(n)) : [];
+      const options = {
+        sizes: [],
+        allowedStrokeWeights,
+        outlineOnlyPolicy: outlinePolicyCheckbox.checked
+      };
+      parent.postMessage({
+        pluginMessage: {
+          type: "run-audit",
+          payload: {
+            scope: scopeSelect.value,
+            options
+          }
+        }
+      }, "*");
+    });
+  }
+  document.querySelectorAll(".filter-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const target = e.target;
+      const filter = target.dataset.filter || "all";
+      document.querySelectorAll(".filter-btn").forEach((b) => b.classList.remove("active"));
+      target.classList.add("active");
+      currentFilter = filter;
+      renderIssues();
+    });
+  });
+  var btnSelectAllIssues = document.getElementById("btn-select-all-issues");
+  if (btnSelectAllIssues) {
+    btnSelectAllIssues.addEventListener("click", () => {
+      if (!currentAuditReport)
+        return;
+      const filteredIssues = getFilteredIssues();
+      filteredIssues.forEach((issue) => selectedIssueIds.add(issue.id));
+      renderIssues();
+    });
+  }
+  var btnDeselectAllIssues = document.getElementById("btn-deselect-all-issues");
+  if (btnDeselectAllIssues) {
+    btnDeselectAllIssues.addEventListener("click", () => {
+      selectedIssueIds.clear();
+      renderIssues();
+    });
+  }
+  var btnFixSelected = document.getElementById("btn-fix-selected");
+  if (btnFixSelected) {
+    btnFixSelected.addEventListener("click", () => {
+      if (selectedIssueIds.size === 0) {
+        alert("No issues selected");
+        return;
+      }
+      parent.postMessage({
+        pluginMessage: {
+          type: "generate-fix-preview",
+          payload: { issueIds: Array.from(selectedIssueIds) }
+        }
+      }, "*");
+    });
+  }
+  var btnCancelFix = document.getElementById("btn-cancel-fix");
+  if (btnCancelFix) {
+    btnCancelFix.addEventListener("click", () => {
+      const modal = document.getElementById("fix-preview-modal");
+      if (modal)
+        modal.classList.add("hidden");
+    });
+  }
+  var btnConfirmFix = document.getElementById("btn-confirm-fix");
+  if (btnConfirmFix) {
+    btnConfirmFix.addEventListener("click", () => {
+      parent.postMessage({
+        pluginMessage: {
+          type: "apply-fixes",
+          payload: { issueIds: Array.from(selectedIssueIds) }
+        }
+      }, "*");
+      const modal = document.getElementById("fix-preview-modal");
+      if (modal)
+        modal.classList.add("hidden");
+    });
+  }
+  var btnExportReport = document.getElementById("btn-export-report");
+  if (btnExportReport) {
+    btnExportReport.addEventListener("click", () => {
+      if (!currentAuditReport)
+        return;
+      const json = JSON.stringify(currentAuditReport, null, 2);
+      const textarea = document.createElement("textarea");
+      textarea.value = json;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+      alert("Report copied to clipboard!");
+    });
+  }
+  var btnCloseDuplicateViewer = document.getElementById("btn-close-duplicate-viewer");
+  if (btnCloseDuplicateViewer) {
+    btnCloseDuplicateViewer.addEventListener("click", () => {
+      const viewer = document.getElementById("duplicate-viewer");
+      if (viewer)
+        viewer.classList.add("hidden");
+      currentDuplicateGroup = null;
+    });
+  }
+  var btnZoomCurrent = document.getElementById("btn-zoom-current");
+  if (btnZoomCurrent) {
+    btnZoomCurrent.addEventListener("click", () => {
+      if (!currentDuplicateGroup)
+        return;
+      const node = currentDuplicateGroup.nodes[currentDuplicateGroup.currentIndex];
+      parent.postMessage({
+        pluginMessage: {
+          type: "zoom-to-node",
+          payload: { nodeId: node.id }
+        }
+      }, "*");
+    });
+  }
+  var btnNextDuplicate = document.getElementById("btn-next-duplicate");
+  if (btnNextDuplicate) {
+    btnNextDuplicate.addEventListener("click", () => {
+      if (!currentDuplicateGroup)
+        return;
+      currentDuplicateGroup.currentIndex = (currentDuplicateGroup.currentIndex + 1) % currentDuplicateGroup.nodes.length;
+      updateDuplicateViewer();
+      const node = currentDuplicateGroup.nodes[currentDuplicateGroup.currentIndex];
+      parent.postMessage({
+        pluginMessage: {
+          type: "zoom-to-node",
+          payload: { nodeId: node.id }
+        }
+      }, "*");
+    });
+  }
+  function getFilteredIssues() {
+    if (!currentAuditReport)
+      return [];
+    let issues = currentAuditReport.issues;
+    issues = issues.filter((issue) => !ignoredIssueIds.has(issue.id));
+    if (currentFilter === "all") {
+      return issues;
+    }
+    return issues.filter((issue) => issue.type === currentFilter);
+  }
+  function renderIssues() {
+    const issuesList = document.getElementById("issues-list");
+    if (!issuesList || !currentAuditReport)
+      return;
+    const filteredIssues = getFilteredIssues();
+    if (filteredIssues.length === 0) {
+      issuesList.innerHTML = '<p class="no-issues">No issues found</p>';
+      return;
+    }
+    issuesList.innerHTML = "";
+    filteredIssues.forEach((issue) => {
+      const issueEl = document.createElement("div");
+      issueEl.className = `issue-item severity-${issue.severity}`;
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.checked = selectedIssueIds.has(issue.id);
+      checkbox.addEventListener("change", (e) => {
+        const target = e.target;
+        if (target.checked) {
+          selectedIssueIds.add(issue.id);
+        } else {
+          selectedIssueIds.delete(issue.id);
+        }
+      });
+      const content = document.createElement("div");
+      content.className = "issue-content";
+      content.innerHTML = `
+      <div class="issue-header">
+        <span class="issue-type">${issue.type}</span>
+        <span class="issue-severity">${issue.severity}</span>
+      </div>
+      <div class="issue-message">${issue.message}</div>
+      <div class="issue-node">${issue.nodeName}</div>
+    `;
+      content.addEventListener("click", () => {
+        if (issue.type === "duplicate" && issue.groupId) {
+          showDuplicateGroup(issue.groupId);
+        } else {
+          parent.postMessage({
+            pluginMessage: {
+              type: "zoom-to-node",
+              payload: { nodeId: issue.nodeId }
+            }
+          }, "*");
+        }
+      });
+      issueEl.appendChild(checkbox);
+      issueEl.appendChild(content);
+      if (issue.type === "duplicate" && issue.groupId) {
+        const ignoreBtn = document.createElement("button");
+        ignoreBtn.className = "btn-ignore";
+        ignoreBtn.textContent = "Ignore";
+        ignoreBtn.title = "Ignore this duplicate warning (sometimes duplicates are intentional)";
+        ignoreBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          if (currentAuditReport) {
+            const groupIssues = currentAuditReport.issues.filter(
+              (i) => i.groupId === issue.groupId
+            );
+            groupIssues.forEach((i) => ignoredIssueIds.add(i.id));
+          }
+          renderIssues();
+          updateAuditSummary();
+        });
+        issueEl.appendChild(ignoreBtn);
+      }
+      issuesList.appendChild(issueEl);
+    });
+  }
+  function showDuplicateGroup(groupId) {
+    if (!currentAuditReport)
+      return;
+    const groupIssues = currentAuditReport.issues.filter(
+      (issue) => issue.groupId === groupId
+    );
+    if (groupIssues.length === 0)
+      return;
+    currentDuplicateGroup = {
+      id: groupId,
+      nodes: groupIssues.map((issue) => ({
+        id: issue.nodeId,
+        name: issue.nodeName
+      })),
+      currentIndex: 0
+    };
+    const viewer = document.getElementById("duplicate-viewer");
+    if (viewer)
+      viewer.classList.remove("hidden");
+    updateDuplicateViewer();
+    const firstNode = currentDuplicateGroup.nodes[0];
+    parent.postMessage({
+      pluginMessage: {
+        type: "zoom-to-node",
+        payload: { nodeId: firstNode.id }
+      }
+    }, "*");
+  }
+  function updateDuplicateViewer() {
+    if (!currentDuplicateGroup)
+      return;
+    const info = document.getElementById("duplicate-info");
+    if (info) {
+      info.textContent = `Viewing ${currentDuplicateGroup.currentIndex + 1}/${currentDuplicateGroup.nodes.length}`;
+    }
+  }
+  function displayAuditResults(report) {
+    currentAuditReport = report;
+    selectedIssueIds.clear();
+    const resultsSection = document.getElementById("audit-results");
+    if (resultsSection)
+      resultsSection.classList.remove("hidden");
+    updateAuditSummary();
+    renderIssues();
+  }
+  function updateAuditSummary() {
+    if (!currentAuditReport)
+      return;
+    const activeIssues = currentAuditReport.issues.filter((i) => !ignoredIssueIds.has(i.id));
+    const statScanned = document.getElementById("stat-scanned");
+    const statIssues = document.getElementById("stat-issues");
+    const statDuplicates = document.getElementById("stat-duplicates");
+    if (statScanned)
+      statScanned.textContent = currentAuditReport.totals.nodesScanned.toString();
+    if (statIssues)
+      statIssues.textContent = activeIssues.length.toString();
+    const activeDuplicateGroups = new Set(
+      activeIssues.filter((i) => i.type === "duplicate" && i.groupId).map((i) => i.groupId)
+    );
+    if (statDuplicates)
+      statDuplicates.textContent = activeDuplicateGroups.size.toString();
+    const score = calculateHealthScore(currentAuditReport, activeIssues);
+    const scoreValue = document.getElementById("score-value");
+    if (scoreValue) {
+      scoreValue.textContent = `${score}%`;
+      scoreValue.className = `score-value score-${getScoreClass(score)}`;
+    }
+  }
+  function calculateHealthScore(report, issues) {
+    if (report.totals.nodesScanned === 0)
+      return 100;
+    const errorWeight = 2;
+    const warningWeight = 1;
+    const infoWeight = 0.5;
+    let totalWeight = 0;
+    issues.forEach((issue) => {
+      if (issue.severity === "error")
+        totalWeight += errorWeight;
+      else if (issue.severity === "warning")
+        totalWeight += warningWeight;
+      else
+        totalWeight += infoWeight;
+    });
+    const maxPossibleWeight = report.totals.nodesScanned * errorWeight;
+    const score = Math.max(0, 100 - totalWeight / maxPossibleWeight * 100);
+    return Math.round(score);
+  }
+  function getScoreClass(score) {
+    if (score >= 90)
+      return "excellent";
+    if (score >= 70)
+      return "good";
+    if (score >= 50)
+      return "fair";
+    return "poor";
+  }
+  window.onmessage = (event) => {
+    const msg = event.data.pluginMessage;
+    if (!msg)
+      return;
+    switch (msg.type) {
+      case "import-progress":
+        updateImportProgress(msg.payload.current, msg.payload.total);
+        break;
+      case "import-complete":
+        handleImportComplete(msg.payload);
+        break;
+      case "audit-complete":
+        displayAuditResults(msg.payload);
+        break;
+      case "fix-preview":
+        showFixPreview(msg.payload.preview);
+        break;
+      case "fixes-applied":
+        handleFixesApplied(msg.payload);
+        break;
+      case "icons-loaded":
+        displayIcons(msg.payload.icons);
+        break;
+      case "metadata-saved":
+        const updatedIcon = allIcons.find((i) => i.id === msg.payload.iconId);
+        if (updatedIcon) {
+          updatedIcon.metadata = msg.payload.metadata;
+          applyFilters();
+        }
+        break;
+      case "metadata-autofilled":
+        const categoryInput = document.getElementById("metadata-category");
+        const tagsInput = document.getElementById("metadata-tags");
+        const descInput = document.getElementById("metadata-description");
+        if (categoryInput && msg.payload.metadata.category) {
+          categoryInput.value = msg.payload.metadata.category;
+        }
+        if (tagsInput && msg.payload.metadata.tags) {
+          tagsInput.value = msg.payload.metadata.tags.join(", ");
+        }
+        if (descInput && msg.payload.metadata.description) {
+          descInput.value = msg.payload.metadata.description;
+        }
+        break;
+      case "autofill-all-complete":
+        alert(`Auto-filled metadata for ${msg.payload.count} icons!`);
+        loadPublishedIcons();
+        break;
+      case "error":
+        alert(`Error: ${msg.payload.message}`);
+        break;
+    }
+  };
+  function updateImportProgress(current, total) {
+    const progressFill = document.getElementById("progress-fill");
+    const progressText = document.getElementById("progress-text");
+    const percent = current / total * 100;
+    if (progressFill) {
+      progressFill.style.width = `${percent}%`;
+    }
+    if (progressText) {
+      progressText.textContent = `Processing ${current}/${total} icons...`;
+    }
+  }
+  function handleImportComplete(payload) {
+    const progressSection = document.getElementById("import-progress");
+    if (progressSection)
+      progressSection.classList.add("hidden");
+    alert(`Import complete! ${payload.totalIcons} icons imported.`);
+    showScreen("audit-screen");
+    displayAuditResults(payload.auditReport);
+  }
+  function showFixPreview(preview) {
+    const previewList = document.getElementById("fix-preview-list");
+    if (!previewList)
+      return;
+    previewList.innerHTML = "";
+    preview.forEach((item) => {
+      const li = document.createElement("li");
+      li.textContent = item;
+      previewList.appendChild(li);
+    });
+    const modal = document.getElementById("fix-preview-modal");
+    if (modal)
+      modal.classList.remove("hidden");
+  }
+  function handleFixesApplied(result) {
+    alert(`Fixes applied: ${result.applied} successful, ${result.failed} failed
+
+${result.summary.join("\n")}`);
+    selectedIssueIds.clear();
+  }
+})();
+</script>
+</body>
+</html>
