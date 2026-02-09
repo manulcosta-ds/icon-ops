@@ -47,8 +47,8 @@ Comprehensive icon library auditing with:
 
 1. Open Figma desktop app
 2. Go to **Plugins** → **Development** → **Import plugin from manifest...**
-3. Navigate to the `icon-guardian` folder and select `manifest.json`
-4. The plugin will appear in **Plugins** → **Development** → **Icon Guardian**
+3. Navigate to the `icon-ops` folder and select `manifest.json`
+4. The plugin will appear in **Plugins** → **Development** → **Icon Ops**
 
 ### Development Mode
 
@@ -63,7 +63,7 @@ This watches for file changes and rebuilds automatically.
 
 ### Import Icons from ZIP
 
-1. Run the plugin: **Plugins** → **Icon Guardian**
+1. Run the plugin: **Plugins** → **Icon Ops**
 2. Click **Import SVG Zip**
 3. Select your ZIP file containing SVG icons
 4. Configure options:
@@ -104,7 +104,7 @@ This watches for file changes and rebuilds automatically.
 ## File Structure
 
 ```
-icon-guardian/
+icon-ops/
 ├── manifest.json          # Figma plugin manifest
 ├── package.json           # NPM dependencies
 ├── tsconfig.json          # TypeScript configuration
